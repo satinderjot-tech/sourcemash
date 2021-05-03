@@ -1,0 +1,481 @@
+<div class="main-loader" style="display: none;">
+    <img class="cart-loader" src="<?php echo $this->getViewFileUrl('images/ajax-loader.gif'); ?>"/>
+</div>
+<input type="hidden" class="artwork_listing_data_url"value="<?php echo $this->getUrl('designstudio/designstudio/listingartwork') ?>"/>
+<input type="hidden" class="addtocart_artwork_data_url" value="<?php echo $this->getUrl('designstudio/designstudio/addtocart') ?>"/>
+<input type="hidden" class="delete_artwork_data_url" value="<?php echo $this->getUrl('designstudio/designstudio/delete') ?>"/>
+<input type="hidden" class="edit_artwork_data_url" value="<?php echo $this->getUrl('designstudio/designstudio/edit') ?>"/>
+<input type="hidden" class="restore_artwork_data_url" value="<?php echo $this->getUrl('designstudio/designstudio/restore') ?>"/>
+<input type="hidden" class="confirm_artwork_data_url" value="<?php echo $this->getUrl('designstudio/designstudio/productcart') ?>"/>
+<input type="hidden" class="remove_artwork_data_url" value="<?php echo $this->getUrl('designstudio/designstudio/remove') ?>"/>
+<input type="hidden" class="share_artwork_data_url" value="<?php echo $this->getUrl('designstudio/designstudio/share') ?>"/>
+<input type="hidden" class="cart_url" value="<?php echo $this->getUrl('checkout/cart') ?>"/>
+
+
+
+ <?php
+        if (isset($_SESSION['artworkdeletesuccess'])) {
+        ?>
+        <div class="artworkdeletesuccess alert-success"> 
+            <?php
+                echo $_SESSION['artworkdeletesuccess'];
+                unset($_SESSION['artworkdeletesuccess']);
+             ?>
+        </div>
+        <script> require([ 'jquery' ], function ($, customerData) {
+            $(document).ready(function (){
+                setTimeout(function () {
+                    $('.artworkdeletesuccess').remove();
+                     }, 5000);
+            }) 
+        });
+         </script>                
+        <?php
+        }
+        if (isset($_SESSION['artworkdeleteerror'])) {
+        ?>
+        <div class="artworkdeleteerror alert-danger "> 
+            <?php
+                echo $_SESSION['artworkdeleteerror'];
+                unset($_SESSION['artworkdeleteerror']);
+             ?>
+        </div>  
+         <script> require([ 'jquery' ], function ($, customerData) {
+            $(document).ready(function (){
+                setTimeout(function () {
+                    $('.artworkdeleteerror').remove();
+                     }, 5000);
+            }) 
+        });
+         </script>                 
+        <?php
+        }
+
+        if (isset($_SESSION['artworkrestoresuccess'])) {
+        ?>
+        <div class="artworkrestoresuccess alert-success "> 
+            <?php
+                echo $_SESSION['artworkrestoresuccess'];
+                unset($_SESSION['artworkrestoresuccess']);
+             ?>
+        </div>  
+         <script> require([ 'jquery' ], function ($, customerData) {
+            $(document).ready(function (){
+                setTimeout(function () {
+                    $('.artworkrestoresuccess').remove();
+                     }, 5000);
+            }) 
+        });
+         </script>                 
+        <?php
+        }
+        if (isset($_SESSION['artworkrestoreerror'])) {
+        ?>
+        <div class="artworkrestoreerror alert-danger "> 
+            <?php
+                echo $_SESSION['artworkrestoreerror'];
+                unset($_SESSION['artworkrestoreerror']);
+             ?>
+        </div>  
+         <script> require([ 'jquery' ], function ($, customerData) {
+            $(document).ready(function (){
+                setTimeout(function () {
+                    $('.artworkrestoreerror').remove();
+                     }, 5000);
+            }) 
+        });
+         </script>                 
+        <?php
+        }
+
+         if (isset($_SESSION['artworkremovesuccess'])) {
+        ?>
+        <div class="artworkremovesuccess alert-success "> 
+            <?php
+                echo $_SESSION['artworkremovesuccess'];
+                unset($_SESSION['artworkremovesuccess']);
+             ?>
+        </div>  
+         <script> require([ 'jquery' ], function ($, customerData) {
+            $(document).ready(function (){
+                setTimeout(function () {
+                    $('.artworkremovesuccess').remove();
+                     }, 5000);
+            }) 
+        });
+         </script>                 
+        <?php
+        }
+
+        if (isset($_SESSION['artworkremoveerror'])) {
+        ?>
+        <div class="artworkremoveerror alert-danger "> 
+            <?php
+                echo $_SESSION['artworkremoveerror'];
+                unset($_SESSION['artworkremoveerror']);
+             ?>
+        </div>  
+         <script> require([ 'jquery' ], function ($, customerData) {
+            $(document).ready(function (){
+                setTimeout(function () {
+                    $('.artworkremoveerror').remove();
+                     }, 5000);
+            }) 
+        });
+         </script>                 
+        <?php
+        }
+
+
+        
+        ?>
+
+<div class="artwork_success_message alert-success"></div>
+<div class="artwork_error_message alert-danger"></div>
+
+
+<div class="toolbar toolbar-products artwork-sortby">
+<a class="btn lj-btn" href="<?php echo $this->getUrl('lj-design-studio') ?>" title="">Create Artwork</a>
+        <div class="toolbar-sorter sorter top-filter" style="display: none">
+            <label class="sorter-label" for="sorter">Sort By:</label>
+            <select id="sorter" data-role="sorter" class="sorter-options">
+                <option value="createdDate">Creation date</option>
+                <option value="quoteName">Art Name</option>
+                
+            </select>
+        </div>
+</div>   
+<div class="design_studio_artwork_container advanced_search " id="designtabs">
+        <ul class="tabs">
+            <li class="clickme current tabActive"><a class="tab-link activelink tabActive" href="javascript:void(0)" data-tag="tabActive" >Active<span class="active_count">(0)</span></a></li>
+            <li class="clickme "><a class="tab-link tabArchive" href="javascript:void(0)" data-tag="tabArchive" >Archive<span class="archive_count">(0)</span></a></li>
+        </ul> 
+         <div style="clear: both;"></div>    
+        <div id="container tabs-container">
+            <div id="tabActive" class="artworklist">
+                <section class="save-quote">
+                    <ul class="save-quote-list active itemsActive">
+                    </ul>
+                </section>
+                <div class="pagination_wrapper pagination_wrapper_active" style="display: none">
+                  <div class="pagination pagination_active">
+                    <div class="previous button">Prev</div>               
+                    <div class="next button insertbeforer">Next</div>
+                  </div>
+                </div>
+             </div>
+            <div id="tabArchive" class="artworklist hide">
+                <section class="save-quote">
+                    <ul class="save-quote-list archived itemsArchive">
+                    </ul>
+                </section>
+                <div class=" pagination_wrapper pagination_wrapper_archive" style="display: none">
+                  <div class="pagination pagination_archive">
+                    <div class="previous button">Prev</div>               
+                    <div class="next button insertbeforer">Next</div>
+                  </div>
+                </div>  
+            </div> 
+        </div>
+    </div> 
+ 
+<div id="designstudio-modal" style="display:none">
+    <?php echo $this->helper('Larsonjuhl\DesignStudio\Helper\DesignStudioHelper')->getConfig('quote_archive_pop_message');?>
+          
+           <span class="remove_note"><?php echo $this->helper('Larsonjuhl\DesignStudio\Helper\DesignStudioHelper')->getConfig('quote_archive_pop_note_message');?></span>
+</div>
+<div id="designstudio-modal-edit" style="display:none">
+           <?php echo $this->helper('Larsonjuhl\DesignStudio\Helper\DesignStudioHelper')->getConfig('quote_edit_popup_message');?>
+</div>
+<div id="designstudio-modal-restore" style="display:none">
+           <?php echo $this->helper('Larsonjuhl\DesignStudio\Helper\DesignStudioHelper')->getConfig('quote_restore_popup_message');?>
+</div>
+<div id="designstudio-modal-remove" style="display:none">
+           <?php echo $this->helper('Larsonjuhl\DesignStudio\Helper\DesignStudioHelper')->getConfig('quote_remove_popup_message');?>
+</div>
+
+<div id="designstudio_artwork_share" style="display:none">    
+        <form method="post" class="share_artwork_form" id="share_artwork_form">
+            <input type="hidden" name="sender-email" value="<?php echo $block->getArtwork(); ?>">
+            <fieldset class="fieldset">
+                <div class="field _required label-inside">
+                    <label for="senderemail" class="label label-control requisition-label name-label on">
+                        <span>Your Email</span>
+                    </label>
+                    <div class="control">
+                        <input class="input-text senderemail" name="senderemail" id="senderemail" maxlength="" type="email" value="<?php echo $block->getArtwork(); ?>" disabled>
+                    </div>
+                </div>
+                <div class="field _required label-inside">
+                    <label for="receiptemail" class="label label-control requisition-label name-label">
+                        <span>Receipt Email</span>
+                    </label>
+                    <div class="control">
+                        <input class="input-text receipt-email" name="receipt-email" id="receipt-email" maxlength="" type="email">
+                        <div class="mage-error" generated="true" id="invalid_email" style="display:none">Please enter a valid email address.</div>
+                    </div>
+                </div>
+                <div class="field label-inside textarea">
+                    <label for="comment" class="label label-control requisition-label name-label">
+                        <span>Comment</span>
+                    </label>
+                    <div class="control">
+                        <textarea class="input-text" name="comment" id="#"></textarea>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+</div>
+
+<div class="back-home" style="display: none">
+    <a class="btn lj-btn" href="" title="">Back</a>
+</div>
+<div class="desing-list" style="display: none"> 
+    <div class="static-outer">
+    <div class="header" id="design-heading">
+      <h6>Design Details</h6>
+    </div>
+        <div class="art-container">
+            <img src="https://dev-designstudio-api.larsonjuhl.com/resources/1_943526_40.jpg" title="Art" alt="Art">
+        </div>
+        <div class="detail-row">
+            <label title="">Art</label>
+            <ul>
+                <li>Name</li>
+                <li class="art_name">Magento Testing</li>
+                <li>Art Dimensions</li>
+                <li class="art_dimension"></li>
+                <li>Finished Outer Dimensions</li>
+                <li class="art_finished_dimension"></li>
+            </ul>
+        </div>
+    </div>
+    <div class="middle">
+    <!-- frame code -->
+      <div class="detail-row frames">
+        <label>Frames</label>
+        <ul>                            
+        <div class="frame-listing">
+            <li class="check-option">                           
+            <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                <div class="check-pass">
+                    <input type="checkbox" name="frame_inner" id="check" data-role="check" value="1" title="" class="checkbox custom-control-input frame_inner">
+                    <label class="label custom-control-label on" for="check" title=""><span title=""></span></label>
+                </div>
+            </div>
+            <input type="hidden" name="frame_inner_hidden" class="frame_inner_uom" value="" />
+            <input type="hidden" name="frame_inner_hidden" class="frame_inner_price" value="" />
+            <input type="hidden" name="frame_inner_hidden" class="frame_inner_width" value="" />
+            <input type="hidden" name="frame_inner_hidden" class="frame_inner_height" value="" />
+            </li>
+            <li class="frame_inner_title position"></li>
+            <li class="frame_inner_value val"></li>
+        </div>
+            
+            <div class="frame-listing">
+
+                 <li class="check-option">
+                <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                    <div class="check-pass">
+                        <input type="checkbox" name="frame_middle" id="frame_middle1" data-role="frame_middle1" value="1" title="" class="checkbox custom-control-input frame_middle">
+                        <label class="label custom-control-label on" for="frame_middle1" title=""><span title=""></span></label>
+                    </div>
+                </div>
+                <input type="hidden" name="frame_middle_hidden" class="frame_middle_uom" value="" />
+                <input type="hidden" name="frame_middle_hidden" class="frame_middle_price" value="" />
+                <input type="hidden" name="frame_middle_hidden" class="frame_middle_width" value="" />
+                <input type="hidden" name="frame_middle_hidden" class="frame_middle_height" value="" />
+                </li>
+                <li class="frame_middle_title position"></li>
+                <li class="frame_middle_value val"></li>
+               
+
+               
+            </div>
+
+            <div class="frame-listing">
+                <li class="check-option">
+                <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                    <div class="check-pass">
+                        <input type="checkbox" name="frame_outer" id="frame_outer1" data-role="frame_outer1" value="1" title="" class="checkbox custom-control-input frame_outer">
+                        <label class="label custom-control-label on" for="frame_outer1" title=""><span title=""></span></label>
+                    </div>
+                </div>
+                <input type="hidden" name="frame_outer_hidden" class="frame_outer_uom" value="" />
+                <input type="hidden" name="frame_outer_hidden" class="frame_outer_price" value="" />
+                <input type="hidden" name="frame_outer_hidden" class="frame_outer_width" value="" />
+                <input type="hidden" name="frame_outer_hidden" class="frame_outer_height" value="" />
+                </li>
+                <li class="frame_outer_title position"></li>
+                <li class="frame_outer_value val"></li>
+                
+            </div>
+        </ul>
+      </div>
+      <!-- Matboard code -->
+      <div class="detail-row mats">
+        <label>Matboard</label>
+        <ul>
+            <div class="frame-listing">
+                 <li class="check-option">
+                <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                    <div class="check-pass">
+                        <input type="checkbox" name="mat_top" id="mat_top1" data-role="mat_top1" value="1" title="" class="checkbox custom-control-input mat_top">
+                        <label class="label custom-control-label on" for="mat_top1" title=""><span title=""></span></label>
+                    </div>
+                </div>
+                <input type="hidden" name="mat_top_hidden" class="mat_top_uom" value="" />
+                <input type="hidden" name="mat_top_hidden" class="mat_top_price" value="" />
+                <input type="hidden" name="mat_top_hidden" class="mat_top_width" value="" />
+                <input type="hidden" name="mat_top_hidden" class="mat_top_height" value="" />
+                </li>
+                <li class="mat_top_title position"></li>
+                <li class="mat_top_value val"></li>
+               <!--  <li class="error"><div class="mesg" >this is discountined and no loger available</div></li> -->
+               
+            </div>
+
+            <div class="frame-listing">
+            <li class="check-option">
+            <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                <div class="check-pass">
+                    <input type="checkbox" name="mat_middle" id="mat_middle1" data-role="mat_middle1" value="1" title="" class="checkbox custom-control-input mat_middle">
+                    <label class="label custom-control-label on" for="mat_middle1" title=""><span title=""></span></label>
+                </div>
+            </div>
+            <input type="hidden" name="mat_middle_hidden" class="mat_middle_uom" value="" />
+            <input type="hidden" name="mat_middle_hidden" class="mat_middle_price" value="" />
+            <input type="hidden" name="mat_middle_hidden" class="mat_middle_width" value="" />
+            <input type="hidden" name="mat_middle_hidden" class="mat_middle_height" value="" />
+            </li>
+            <li class="mat_middle_title position"></li>
+            <li class="mat_middle_value val"></li>
+           
+        </div>
+
+
+            <div class="frame-listing">
+            <li class="check-option">
+            <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                <div class="check-pass">
+                    <input type="checkbox" name="mat_bottom" id="mat_bottom1" data-role="mat_bottom1" value="1" title="" class="checkbox custom-control-input mat_bottom">
+                    <label class="label custom-control-label on" for="mat_bottom1" title=""><span title=""></span></label>
+                </div>
+            </div>
+            <input type="hidden" name="mat_bottom_hidden" class="mat_bottom_uom" value="" />
+            <input type="hidden" name="mat_bottom_hidden" class="mat_bottom_price" value="" />
+            <input type="hidden" name="mat_bottom_hidden" class="mat_bottom_width" value="" />
+            <input type="hidden" name="mat_bottom_hidden" class="mat_bottom_height" value="" />
+            </li>
+            <li class="mat_bottom_title position"></li>
+            <li class="mat_bottom_value val"></li>
+           
+           
+        </div>
+        </ul>
+      </div>
+      <!-- Fillet code -->
+      <div class="detail-row fillets">
+        <label>Fillet</label>
+        <ul>
+            <div class="frame-listing">
+                <li class="check-option">
+            <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                <div class="check-pass">
+                    <input type="checkbox" name="fillet_top" id="fillet_top1" data-role="fillet_top1" value="1" title="" class="checkbox custom-control-input fillet_top">
+                    <label class="label custom-control-label on" for="fillet_top1" title=""><span title=""></span></label>
+                </div>
+            </div>
+            <input type="hidden" name="fillet_top_hidden" class="fillet_top_uom" value="" />
+            <input type="hidden" name="fillet_top_hidden" class="fillet_top_price" value="" />
+            <input type="hidden" name="fillet_top_hidden" class="fillet_top_width" value="" />
+            <input type="hidden" name="fillet_top_hidden" class="fillet_top_height" value="" />
+            </li>
+            <li class="fillet_top_title position"></li>
+            <li class="fillet_top_value val"></li>
+            
+        </div>
+
+            <div class="frame-listing">
+            <li class="check-option">
+            <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                <div class="check-pass">
+                    <input type="checkbox" name="fillet_middle" id="fillet_middle1" data-role="fillet_middle1" value="1" title="" class="checkbox custom-control-input fillet_middle">
+                    <label class="label custom-control-label on" for="fillet_middle1" title=""><span title=""></span></label>
+                </div>
+            </div>
+            <input type="hidden" name="fillet_middle_hidden" class="fillet_middle_uom" value="" />
+            <input type="hidden" name="fillet_middle_hidden" class="fillet_middle_price" value="" />
+            <input type="hidden" name="fillet_middle_hidden" class="fillet_middle_width" value="" />
+            <input type="hidden" name="fillet_middle_hidden" class="fillet_middle_height" value="" />
+            </li>
+            <li class="fillet_middle_title position"></li>
+            <li class="fillet_middle_value val"></li>
+            
+        </div>
+
+        <div class="frame-listing">
+            <li class="check-option">
+            <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                <div class="check-pass">
+                    <input type="checkbox" name="fillet_bottom" id="fillet_bottom1" data-role="fillet_bottom1" value="1" title="" class="checkbox custom-control-input fillet_bottom">
+                    <label class="label custom-control-label on" for="fillet_bottom1" title=""><span title=""></span></label>
+                </div>
+            </div>
+            <input type="hidden" name="fillet_bottom_hidden" class="fillet_bottom_uom" value="" />
+            <input type="hidden" name="fillet_bottom_hidden" class="fillet_bottom_price" value="" />
+            <input type="hidden" name="fillet_bottom_hidden" class="fillet_bottom_width" value="" />
+            <input type="hidden" name="fillet_bottom_hidden" class="fillet_bottom_height" value="" />
+            </li>
+
+            <li class="fillet_bottom_title position"></li>
+            <li class="fillet_bottom_value val"></li>
+            
+        </div>
+        </ul>
+      </div>
+    <!-- Glazing code -->   
+    <div class="detail-row glazing">
+        <label>Glazing</label>
+        <ul>
+            <div class="frame-listing">
+                <li class="check-option">
+            <div class="field choice custom-control custom-checkbox lj-Checkbox">
+                <div class="check-pass">
+                    <input type="checkbox" name="glazing_top" id="glazing_top1" data-role="glazing_top1" value="1" title="" class="checkbox custom-control-input glazing_top">
+                    <label class="label custom-control-label on" for="glazing_top1" title=""><span title=""></span></label>
+                </div>
+            </div>
+            <input type="hidden" name="glazing_top_hidden" class="glazing_top_uom" value="" />
+            <input type="hidden" name="glazing_top_hidden" class="glazing_top_price" value="" />
+            <input type="hidden" name="glazing_top_hidden" class="glazing_top_width" value="" />
+            <input type="hidden" name="glazing_top_hidden" class="glazing_top_height" value="" />
+            </li>
+            <li class="glazing_top_title position"></li>
+            <li class="glazing_top_value val"></li>
+            
+        </div>
+        </ul>
+      </div>    
+</div>
+    <div class="bottom">
+        <div class="choose-board">
+                              <button type="submit" id="cartconfirmation" class="btn goldBtn">Confirm to Cart</button>
+                            </div>
+    </div>
+</div>
+
+
+<script>// <![CDATA[
+    require([
+        'jquery',
+        'jquery_dataTables_min',
+        'designstudioartwork',
+        'simple_numbers_no_ellipses'
+    ], function ($, script) {
+        $(document).ready(function () {
+            
+        });
+    });
+    // ]]>
+</script>

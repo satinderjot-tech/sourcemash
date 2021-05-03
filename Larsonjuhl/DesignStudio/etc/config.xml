@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <designstudio_artwork>
+            <general_designstudio_artwork>
+                <artwork_error_message>Ooops, something is wrong! We're currently unable to process the request.</artwork_error_message>
+                <artwork_listing_error_message>No Records found.</artwork_listing_error_message>
+                <quote_delete_message>Design Deleted Successfully.</quote_delete_message>
+                <quote_restore_message>Design Restored Successfully.</quote_restore_message>
+                <quote_share_message>Design shared Successfully.</quote_share_message>
+                <quote_remove_message>Design Removed Successfully.</quote_remove_message>
+                <quote_remove_popup_message>Are you sure you want to delete this design permanently?</quote_remove_popup_message>
+                <quote_archive_pop_message>Are you sure you want to archive this design ?</quote_archive_pop_message>
+                <quote_archive_pop_note_message>Note: Designs you archived aren't deleted, you can find them in archive section.</quote_archive_pop_note_message>
+                <quote_edit_popup_message> Are you sure you want to edit this design?</quote_edit_popup_message>
+                <quote_restore_popup_message>Are you sure you want to restore this design?</quote_restore_popup_message>
+                <artwork_api_base_url>https://dev-designstudio-api.larsonjuhl.com</artwork_api_base_url>
+                <artwork_api_delete_restore>/Quote/updateQuote</artwork_api_delete_restore>
+                <artwork_api_listing_url>/Quote/getQuotesByEmail</artwork_api_listing_url>
+                <artwork_api_get_quote_url>/Quote</artwork_api_get_quote_url>
+                <artwork_remove_quote_url>/Quote/deletequote</artwork_remove_quote_url>
+                <artwork_share_quote_url>https://uat-api.larsonjuhl.com/v1/email/artwork/emailShare</artwork_share_quote_url>
+                <artwork_email_template_image_base_url>https://dev-designstudio.larsonjuhl.com/assets/</artwork_email_template_image_base_url>
+            </general_designstudio_artwork>
+        </designstudio_artwork>
+    </default>
+</config>
+

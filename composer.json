@@ -1,0 +1,18 @@
+{
+ "name": "satinderjot-tech/sourcemash",
+ "description": "Lovat Api Sales Module for Magento 2",
+ "type": "magento2-module",
+ "version": "1.0.0",
+ "require": {
+     "php": "^7.2.2",
+     "magento/framework": "101.0.*"
+ },
+ "autoload": {
+     "files": [
+         "registration.php"
+     ],
+     "psr-4": {
+         "Larsonjuhl\\DesignStudio\\": ""
+     }
+ }
+}

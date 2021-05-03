@@ -1,0 +1,31 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+	 <update handle="customer_account"/>
+    <head>
+        <title>Design Studio Art Work</title>
+    </head> 
+    
+    <body>
+        
+    	 <referenceBlock name="breadcrumbs">
+                <action method="addCrumb">
+                    <argument name="crumbName" xsi:type="string">home</argument>
+                    <argument name="crumbInfo" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Home</item>
+                        <item name="label" xsi:type="string" translate="true">Home</item>
+                        <item name="link" xsi:type="string">{{baseUrl}}</item>
+                    </argument>
+                </action>
+                <action method="addCrumb">
+                    <argument name="crumbName" xsi:type="string">account</argument>
+                    <argument name="crumbInfo" xsi:type="array">
+                        <item name="title" xsi:type="string" translate="true">Account</item>
+                        <item name="label" xsi:type="string" translate="true">Account</item>
+                        <item name="link" xsi:type="string">{{baseUrl}}customer/account/edit</item>
+                    </argument>
+                </action>
+            </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Larsonjuhl\DesignStudio\Block\Index" name="design.studio.index" template="Larsonjuhl_DesignStudio::dsconfiguration.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
